@@ -1,29 +1,27 @@
-// esta clase está completa, no necesita nada más
+
+class Universidad {
+	var property provincia
+	var property honorariosPorHora = 0
+}
+
 class ProfesionalAsociado {
-	var universidad
-	
-	method universidad() { return universidad }
-	method universidad(univ) { universidad = univ }
+	var property universidad
 	
 	method provinciasDondePuedeTrabajar() { return #{"Entre Ríos", "Corrientes", "Santa Fe"} }
 	
 	method honorariosPorHora() { return 3000 }
 }
 
-
-// a esta clase le faltan métodos
-class ProfesionalVinculado {
-	var universidad
+class ProfesionalVinculado inherits Universidad{
+	var property universidad
 	
-	method universidad() { return universidad }
-	method universidad(univ) { universidad = univ }
+	method provinciasDondePuedeTrabajar() { return #{ provincia } }
 }
 
-
-// a esta clase le faltan atributos y métodos
-class ProfesionalLibre {
-	var universidad
+class ProfesionalLibre inherits Universidad {
+	var property universidad
+	var property provinciasDondePuedeTrabajar = #{ }
+	var property honorario = 0
 	
-	method universidad() { return universidad }
-	method universidad(univ) { universidad = univ }
+	override method honorariosPorHora() { return super() + honorario }
 }
