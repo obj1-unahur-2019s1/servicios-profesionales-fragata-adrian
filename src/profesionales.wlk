@@ -1,6 +1,6 @@
 
 class Universidad {
-	var property provincia
+	var property provincia = ""
 	var property honorariosPorHora = 0
 }
 

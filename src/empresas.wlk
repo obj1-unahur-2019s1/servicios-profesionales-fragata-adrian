@@ -13,7 +13,9 @@ class EmpresaServicio {
 	}
 	
 	method universidadesFormadoras() { 
-		return profesionalesContratados.filter({p => p.universidad()}).asSet()
+		var universidadesFormadoras = #{ }
+		profesionalesContratados.forEach({p => universidadesFormadoras.add(p.universidad())})
+		return universidadesFormadoras
 	}
 	
 	method profesionalMasBarato() { 
