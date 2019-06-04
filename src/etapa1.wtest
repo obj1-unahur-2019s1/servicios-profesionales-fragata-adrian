@@ -59,4 +59,4 @@ describe "test etapa 1" {
 		
 		assert.equals(false, empresa.esDeGenteAcotada())
 	}
-}
+}//

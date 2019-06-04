@@ -1,8 +1,10 @@
 import profesionales.*
+import solicitantes.*
 
 class EmpresaServicio {
 	var property profesionalesContratados = [ ]
-	const property honorarioDeReferencia = 0
+	var property honorarioDeReferencia = 0
+	var property clientesDeLaEmpresa = #{ }
 	
 	method cuantosEstudiaronEn(universidad) { 
 		return profesionalesContratados.count({p => p.universidad() == universidad})
@@ -13,9 +15,7 @@ class EmpresaServicio {
 	}
 	
 	method universidadesFormadoras() { 
-		var universidadesFormadoras = #{ }
-		profesionalesContratados.forEach({p => universidadesFormadoras.add(p.universidad())})
-		return universidadesFormadoras
+		return profesionalesContratados.map({p => p.universidad()}).asSet() 
 	}
 	
 	method profesionalMasBarato() { 
@@ -25,4 +25,34 @@ class EmpresaServicio {
 	method esDeGenteAcotada() { 
 		return profesionalesContratados.all({p => p.provinciasDondePuedeTrabajar().size() <= 3})
 	}
+	
+	method puedeSatisfacer(solicitante) {
+		return profesionalesContratados.any({p => solicitante.puedeSerAtendidoPor(p)})
+	}
+	
+	method elegirProfesional(solicitante) { 
+		return profesionalesContratados.filter({p => solicitante.puedeSerAtendidaPor(p)}).head()
+	}
+	
+	method darServicio(solicitante) { 
+		if(self.puedeSatisfacer(solicitante)){
+			var profesionalElegido = self.elegirProfesional(solicitante)
+			
+			profesionalElegido.cobrar(profesionalElegido.honorariosPorHora())
+			clientesDeLaEmpresa.add(solicitante)
+		}
+		else { self.error("No se puede satisfacer")}
+	}
+	
+	method cuantosClientesTiene() { return clientesDeLaEmpresa.size()} 
+	
+	method tieneComoClienteA(solicitante) { 
+		return clientesDeLaEmpresa.contais(solicitante)
+	}
+	
+	method profesionalPocoAtractivo(profesional) {
+		return profesional.provinciasDondePuedeTrabajar()
+	}
+	
 }
+//
