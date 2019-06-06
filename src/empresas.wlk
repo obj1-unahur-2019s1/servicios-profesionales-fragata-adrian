@@ -51,8 +51,21 @@ class EmpresaServicio {
 	}
 	
 	method profesionalPocoAtractivo(profesional) {
-		return profesional.provinciasDondePuedeTrabajar()
+		var provincias = profesional.provinciasDondePuedeTrabajar()
+		var profesionales = provincias.filter({prov => self.profesionalesCalificados(prov)})
+		
+		return provincias.any({prov => self.sePuedeCubrir(prov)})
+	}
+	
+	method sePuedeCubrir(provincia){
+		profesionalesContratados.map({p => p.provinciaDondePuedeTrabajar()}).contains(provincia)
+	}
+	
+	method profesionalesCalificados(provincia){
+		profesionalesContratados.filter({p => 
+			p.provinciaDondePuedeTrabajar().any({prov => prov == provincia})
+		})
 	}
 	
 }
-//
+

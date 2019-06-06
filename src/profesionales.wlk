@@ -44,7 +44,7 @@ class ProfesionalLibre{
 }
 
 object asociacionProfesionesDelLitoral {
-	var property dineroPorDonaciones = 0
+	var property totalRecaudado = 0
 	
-	method recibirDonacion(cuanto) { dineroPorDonaciones += cuanto }
-}//
+	method recibirDonacion(cuanto) { totalRecaudado += cuanto }
+}

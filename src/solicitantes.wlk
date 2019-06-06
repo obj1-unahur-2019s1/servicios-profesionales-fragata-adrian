@@ -15,4 +15,4 @@ class Institucion {
 	method puedeSerAtendidaPor(profesional) { 
 		return universidadesQueReconoce.contains(profesional.universidad())
 	}
-}//
+}
